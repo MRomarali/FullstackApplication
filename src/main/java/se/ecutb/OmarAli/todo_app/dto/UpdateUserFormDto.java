@@ -6,7 +6,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
-public class UpdateAppUserFormDto {
+public class UpdateUserFormDto {
 
    @Positive
     private int userId;

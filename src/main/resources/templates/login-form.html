@@ -7,7 +7,7 @@
     <link rel="stylesheet" th:href="@{css/style.css}" href="../static/style.css">
 </head>
 <body>
-<nav th:replace="navbartest :: navbar"></nav>
+<nav th:replace="navbar :: navbar"></nav>
     <div sec:authorize="isAnonymous()" class="container">
         <div class="d-flex justify-content-center h-100">
             <div class="card">

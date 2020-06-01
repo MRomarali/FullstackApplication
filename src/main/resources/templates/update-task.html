@@ -12,7 +12,7 @@
     <title>Update task</title>
 </head>
 <body>
-<nav th:replace="navbartest :: navbar"></nav>
+<nav th:replace="navbar :: navbar"></nav>
 <br>
 <div class="container">
     <form th:action="@{/todos/{id}/update/process (id=${form.getTodoItemId()})}" th:object="${form}" method="post">

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import se.ecutb.OmarAli.todo_app.data.AppUserRoleRepo;
 import se.ecutb.OmarAli.todo_app.data.TodoItemRepo;
 import se.ecutb.OmarAli.todo_app.dto.AppUserFormDto;
-import se.ecutb.OmarAli.todo_app.dto.UpdateAppUserFormDto;
+import se.ecutb.OmarAli.todo_app.dto.UpdateUserFormDto;
 import se.ecutb.OmarAli.todo_app.entity.AppUser;
 import se.ecutb.OmarAli.todo_app.entity.AppUserRole;
 import se.ecutb.OmarAli.todo_app.entity.Role;
@@ -91,7 +91,7 @@ public class AppUserController {
 
     @GetMapping("users/{id}/update")
     public String getUserUpdateForm(@PathVariable("id")int id, Model model){
-        UpdateAppUserFormDto appUserFormDto = new UpdateAppUserFormDto();
+        UpdateUserFormDto appUserFormDto = new UpdateUserFormDto();
         AppUser appUser = appUserService.findById(id).orElseThrow(IllegalArgumentException::new);
         AppUserRole admin = appUserRoleRepo.findByRole(Role.ADMIN).orElseThrow(IllegalArgumentException::new);
         appUserFormDto.setFirstName(appUser.getFirstName());
@@ -105,7 +105,7 @@ public class AppUserController {
 
     // Update user, process
     @PostMapping("users/{id}/update/process")
-    public String processUpdate(@PathVariable("id")int id, UpdateAppUserFormDto form, BindingResult bindingResult){
+    public String processUpdate(@PathVariable("id")int id, UpdateUserFormDto form, BindingResult bindingResult){
         AppUser original = appUserService.findById(id).orElseThrow(IllegalArgumentException::new);
         AppUserRole admin = appUserRoleRepo.findByRole(Role.ADMIN).orElseThrow(IllegalArgumentException::new);
         if (bindingResult.hasErrors()){
