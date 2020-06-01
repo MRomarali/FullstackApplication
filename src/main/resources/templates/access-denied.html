@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{/style.css}" href="../static/style.css">
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.css}">
+    <script defer th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script defer th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+    <script defer th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    <meta charset="UTF-8">
+    <title>Access denied</title>
+</head>
+<body>
+<br>
+<br>
+<nav th:replace="navbartest :: navbar"></nav>
+<div class="container">
+
+    <div class="card mt-4 mb-3 border-dark">
+        <h4 class="bg-dark text-danger card-header font-weight-light">Access Denied</h4>
+        <div class="card-body">
+            <h5>You are not authorized to view requested page</h5>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

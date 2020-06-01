@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.css}"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{css/style.css}" href="../static/style.css">
+    <meta charset="UTF-8">
+    <title>List of users</title>
+</head>
+<body>
+<nav th:replace="navbartest :: navbar"></nav>
+<br>
+<div class="container">
+    <div th:if="${users.isEmpty()}">
+        <h2>No users yet...</h2>
+    </div>
+    <div class="row col-md-12 col-md-offset-2 custyle" th:if="${!users.isEmpty()}">
+        <table class="table table-striped custab">
+            <thead>
+            <tr>
+                <th>Username</th>
+                <th>First name</th>
+                <th>Last name</th>
+                <th>Tasks</th>
+                <th class="text-center">Actions</th>
+            </tr>
+            </thead>
+            <tr th:each="user : ${users}">
+                <td th:text="${user.userName}"></td>
+                <td th:text="${user.firstName}"></td>
+                <td th:text="${user.lastName}"></td>
+                <td>
+                    <a class="nav-link dropdown-toggle text-info" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="badge badge-info" th:text="${user.todoItems.size()}"></span>
+                        Assigned tasks
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <div th:each="todo : ${user.todoItems}" >
+                            <a th:value="${todo.title}" th:text="${todo.title}" class="dropdown-item" th:href="@{/todos/{id} (id=${todo.getTodoItemId()})}"></a>
+                            <div class="dropdown-divider"></div>
+                        </div>
+                    </div>
+                </td>
+                <td class="text-center">
+                    <a th:if="${#authentication.name.equalsIgnoreCase(user.userName)} or ${#authorization.expression('hasAuthority(''ADMIN'')')}" class='btn btn-info btn-xs' th:href="@{/users/{id} (id=${user.getUserId()})}">Details</a>
+                    <form sec:authorize="hasAuthority('ADMIN')" method="post" th:action="@{/users/delete}">
+                        <input type="hidden" name="userId" id="userId" th:value="${user.userId}">
+                        <button th:onclick="alert('Deleted user (*input username here*)')" type="submit" class="btn btn-danger btn-xs">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>

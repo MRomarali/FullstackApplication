@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.css}"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{css/style.css}" href="../static/style.css">
+
+    <meta charset="UTF-8">
+    <title>Create new Todo</title>
+</head>
+<body>
+<nav th:replace="navbartest :: navbar"></nav>
+<br>
+<div class="container">
+    <div class="row">
+        <form th:action="@{/todos/create/process}" th:object="${form}" method="post" class="col-md-8 go-right">
+            <h2>Create a new todo</h2>
+            <div class="form-group">
+                <label for="title">Title:</label>
+                <input type="text" id="title" th:field="*{title}" class="form-control">
+            </div>
+            <div class="text-danger font-weight-bold" th:if="${#fields.hasErrors('title')}">
+                <ul>
+                    <li th:each="err : ${#fields.errors('title')}">
+                        <span th:text="${err}"></span>
+                    </li>
+                </ul>
+            </div>
+            <div class="form-group">
+                <label for="description">Description:</label>
+                <textarea type="text" id="description" th:field="*{description}" class="form-control"></textarea>
+            </div>
+            <div class="text-danger font-weight-bold" th:if="${#fields.hasErrors('description')}">
+                <ul>
+                    <li th:each="err : ${#fields.errors('description')}">
+                        <span th:text="${err}"></span>
+                    </li>
+                </ul>
+            </div>
+            <div class="form-group">
+                <label for="deadline">Deadline:</label>
+                <input type="text" id="deadline" th:field="*{deadline}" placeholder="xxxx-xx-xx" class="form-control">
+            </div>
+            <div class="text-danger font-weight-bold" th:if="${#fields.hasErrors('deadline')}">
+                <ul>
+                    <li th:each="err : ${#fields.errors('deadline')}">
+                        <span th:text="${err}"></span>
+                    </li>
+                </ul>
+            </div>
+            <div class="form-group">
+                <label for="reward">Reward:</label>
+                <input type="number" step="0.1" id="reward" th:field="*{reward}" class="form-control">
+            </div>
+            <div class="text-danger font-weight-bold" th:if="${#fields.hasErrors('reward')}">
+                <ul>
+                    <li th:each="err : ${#fields.errors('reward')}">
+                        <span th:text="${err}"></span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="form-group">
+                <label for="assignee">
+                    <span class="font-weight-bold" th:text="${form?.assignee?.userName}"></span>
+                    <span>| Available users: </span>
+                    <span th:each="user : ${users}" th:text="' '+ ${user.userName} + ' Id: ' + ${user.userId} + ' |'"></span>
+                </label>
+                <input type="text" id="assignee" th:field="*{assignee}" class="form-control">
+                <span>Enter ID of the user you wish to assign - Leave blank for no assignee</span>
+            </div>
+
+            <button class="btn btn-secondary">Submit</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

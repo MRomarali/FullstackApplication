@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.css}"/>
+    <link rel="stylesheet" th:href="@{css/style.css}" href="../static/style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title>Task details</title>
+</head>
+<body>
+<nav th:replace="navbartest :: navbar"></nav>
+<br>
+    <div class="container">
+        <div class="row col-md-12 col-md-offset-2 custyle">
+        <table class="table table-striped custab">
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Assigned user</th>
+                <th>Deadline</th>
+                <th>Done</th>
+                <th>Value</th>
+                <th>Actions</th>
+            </tr>
+            <tr>
+                <td th:text="${todo.title}"></td>
+                <td th:text="${todo.description}"></td>
+                <td th:text="${todo?.assignee?.userName}"></td>
+                <td th:text="${todo.deadline}"></td>
+                <th th:if="${todo.done}">Finished</th>
+                <th th:if="${!todo.done}">Not finished</th>
+                <td th:text="${todo.reward}"></td>
+                <td class="text-center">
+                    <a sec:authorize="hasAuthority('ADMIN')" class='btn btn-info btn-xs' th:href="@{/todos/{id}/update (id=${todo.getTodoItemId()})}">Update</a>
+                    <a sec:authorize="hasAuthority('ADMIN')" class="btn btn-danger btn-xs" th:href="@{/login}">Delete</a> <!-- Ej färdiglänkad  -->
+                </td>
+            </tr>
+        </table>
+        </div>
+    </div>
+</body>
+</html>

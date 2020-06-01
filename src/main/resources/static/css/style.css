@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css?family=Numans');
+
+:root{
+    --main-style-color: #9932CC;
+}
+html,body{
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100%;
+    font-family: 'Numans', sans-serif;
+}
+nav {
+    background-color: rgba(0,0,0,0.6) !important;
+    font-family: 'Numans', sans-serif !important;
+}
+form button {
+    color: var(--main-style-color) !important;
+}
+
+.nav a {
+    color: var(--main-style-color) !important;
+    font-weight: bold;
+}
+.nav a:hover {
+    color: white;
+}
+.card-body{
+    padding-bottom: 2.25rem !important;
+    flex: none !important;
+}
+
+.container{
+    height: 100%;
+    align-content: center;
+}
+
+.main-color{
+    color: var(--main-style-color) !important;
+
+}
+
+.card{
+    height: 375px;
+    margin-top: auto;
+    margin-bottom: auto;
+    width: 400px;
+    background-color: rgba(0,0,0,0.5) !important;
+}
+
+.card-header h3{
+    color: white;
+}
+
+.input-group-prepend span{
+    width: 50px;
+    background-color: whitesmoke;
+    color: black;
+    border:0 !important;
+}
+
+.links{
+    color: white;
+}
+
+.links a{
+    margin-left: 4px;
+}
+.main{
+    padding: 40px 0;
+}
+span.color-blue{
+    color: #009edf;
+}
+span.color-grey{
+    color: #a3a2a2;
+}
+/* For buttons in the tables */
+.custab{
+    border: 1px solid #ccc;
+    padding: 5px;
+    margin: 5% 0;
+    box-shadow: 3px 3px 2px #ccc;
+    transition: 0.5s;
+}
+.custab:hover{
+    box-shadow: 3px 3px 0px transparent;
+    transition: 0.5s;
+}

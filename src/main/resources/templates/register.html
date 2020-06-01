@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.css}"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{css/style.css}" href="../static/style.css">
+    <meta charset="UTF-8">
+    <title>Register new user</title>
+</head>
+<body>
+<nav th:replace="navbartest :: navbar"></nav>
+<br>
+<br>
+<div class="container">
+    <div class="row">
+        <form th:action="@{/register/process}" th:object="${form}" method="post" class="col-md-9 go-right">
+            <h2>Register a new user</h2>
+            <div class="form-group">
+                <label for="userName">Username:</label>
+                <input type="text" id="userName" th:field="*{userName}" class="form-control">
+            </div>
+            <div class="text-danger font-weight-bold" th:if="${#fields.hasErrors('userName')}">
+                <ul>
+                    <li th:each="err : ${#fields.errors('userName')}">
+                        <span th:text="${err}"></span>
+                    </li>
+                </ul>
+            </div>
+            <div class="form-group">
+                <label for="firstName">First name:</label>
+                <input type="text" id="firstName" th:field="*{firstName}" class="form-control">
+            </div>
+            <div class="text-danger font-weight-bold" th:if="${#fields.hasErrors('firstName')}">
+                <ul>
+                    <li th:each="err : ${#fields.errors('firstName')}">
+                        <span th:text="${err}"></span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="form-group">
+                <label for="lastName">Last name:</label>
+                <input type="text" id="lastName" th:field="*{lastName}" class="form-control">
+            </div>
+            <div class="text-danger font-weight-bold" th:if="${#fields.hasErrors('lastName')}">
+                <ul>
+                    <li th:each="err : ${#fields.errors('lastName')}">
+                        <span th:text="${err}"></span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" th:field="*{password}" class="form-control">
+            </div>
+            <div class="text-danger font-weight-bold" th:if="${#fields.hasErrors('password')}">
+                <ul>
+                    <li th:each="err : ${#fields.errors('password')}">
+                        <span th:text="${err}"></span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="form-group">
+                <label for="passwordConfirm">Confirm password:</label>
+                <input type="password" id="passwordConfirm" th:field="*{passwordConfirm}" class="form-control">
+            </div>
+            <div class="text-danger font-weight-bold" th:if="${#fields.hasErrors('passwordConfirm')}">
+                <ul>
+                    <li th:each="err : ${#fields.errors('passwordConfirm')}">
+                        <span th:text="${err}"></span>
+                    </li>
+                </ul>
+            </div>
+
+            <div th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}" class="form-group">
+                <label for="admin">Give this user administrator rights: </label>
+                <input type="checkbox" id="admin" name="admin" th:value="true" th:field="*{admin}">
+            </div>
+
+            <button class="btn btn-secondary">Submit</button>
+
+        </form>
+    </div>
+</div>
+</body>
+</html>
